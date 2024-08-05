@@ -1,1 +1,2 @@
-## Work Flow of NLP Projects
+<<<<<<< HEAD
+## Work Flow of NLP Projects  
