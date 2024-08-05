@@ -1,3 +1,3 @@
 
 ## Work Flow of NLP Projects 
-![Work flow](![2-Figure1-1](https://github.com/user-attachments/assets/94b1b3d8-55b8-46bd-8d9a-1aeb9ced58de)) 
+![Work flow](https://d3i71xaburhd42.cloudfront.net/f4d8f8b928d4f7457c442dbc822a49a57fbc7a8b/2-Figure1-1.png) 
