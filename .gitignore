@@ -161,3 +161,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 requirement.txt
+sentiment_model.h5
+tokenizer.pkl 
+preprocessing_config.pkl
+movie_reviews_model.keras
+config_IMDB 
