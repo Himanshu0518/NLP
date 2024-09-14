@@ -3,37 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentiment Analysis</title>
+    <title>Sentiment Analysis Web App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9/dist/Chart.min.js"></script>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Sentiment Analysis</h1>
-        <form id="sentimentForm">
-            <textarea id="textInput" placeholder="Enter text here..." required></textarea>
-            <button type="submit">Analyze Sentiment</button>
+    <div id="heading"><h1 id="title">Sentiment Analysis Project</h1></div>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('about')">About</a></li>
+            <li><a href="#" onclick="showSection('upload')">Upload File</a></li>
+            <li><a href="#" onclick="showSection('custom-test')">Custom Test</a></li>
+        </ul>
+    </nav>
+
+    <section id="about" class="section">
+        <h1>About</h1>
+        <p>Welcome to the Sentiment Analysis Web App. This application allows you to analyze the sentiment of movie reviews using a trained model and visualize the results with charts and word clouds.</p>
+    </section>
+
+    <section id="upload" class="section hidden">
+        <h1>Upload Reviews File</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload</button>
         </form>
-        <div id="result"></div>
-    </div>
+        <div id="file-results">
+            <h2>Results</h2>
+            <p>Positive Reviews: <span id="positive"></span>%</p>
+            <p>Negative Reviews: <span id="negative"></span>%</p>
+            <img id="wordcloud" alt="Word Cloud">
+            <img id="pie-chart" alt="Pie Chart"> <!-- Display Pie Chart -->
+        </div>
+    </section>
 
-    <script>
-        document.getElementById('sentimentForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+    <section id="custom-test" class="section hidden">
+        <h1>Custom Test</h1>
+        <textarea id="custom-text" placeholder="Enter your text here..."></textarea>
+        <button id="submit-custom-text">Analyze</button>
+        <div id="sentiment"></div>
+        <div class="chart-container">
+            <div>
+                <h3>Pie Chart</h3>
+                <canvas id="myPieChart" width="400" height="400"></canvas>
+            </div>
+        
+            <div>
+                <h3>Bar Graph</h3>
+                <canvas id="myBarChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+        
+        
+    </section>
 
-            const textInput = document.getElementById('textInput').value;
-            const response = await fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: textInput })
-            });
-
-            const data = await response.json();
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = `<h2>Sentiment: ${data.sentiment}</h2>`;
-        });
-    </script>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
 </body>
 </html>

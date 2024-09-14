@@ -4,7 +4,12 @@ from flask import Flask, request, jsonify, render_template
 from nltk.stem import PorterStemmer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
+from nltk.corpus import stopwords 
 import pickle
+import nltk 
+import re
+
+nltk.download('stopwords')
 
 app = Flask(__name__)
 
@@ -21,9 +26,12 @@ sent_length = config['sent_length']
 stemmer = PorterStemmer()
 
 def preprocess_text(text):
+    
     # Apply stemming to the input text
-    tokens = text.split()
-    stemmed_tokens = [stemmer.stem(token) for token in tokens]
+    stemmed_tokens = re.sub('[^a-zA-Z]',' ',text)
+    stemmed_tokens = stemmed_tokens.lower()
+    stemmed_tokens = stemmed_tokens.split() 
+    stemmed_tokens = [stemmer.stem(token) for token in stemmed_tokens if  not token in stopwords.words('english')]
     return " ".join(stemmed_tokens)
 
 def text_to_padded_sequence(text, vocab_size, sent_length):
